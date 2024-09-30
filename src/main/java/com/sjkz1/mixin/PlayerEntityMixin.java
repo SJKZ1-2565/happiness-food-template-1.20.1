@@ -5,6 +5,7 @@ import com.sjkz1.manager.HappinessManager;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -12,14 +13,19 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Objects;
+
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
+
+    @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
     @Unique
     protected HappinessManager happinessManager = new HappinessManager();
@@ -60,11 +66,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         boolean isGood = HappinessFood.GOOD_FOODS_HAPPINESS_LEVEL.containsKey(stack.getItem());
         boolean isBad = HappinessFood.BAD_FOODS_HAPPINESS_LEVEL.containsKey(stack.getItem());
         if (isGood) {
-            int goodFoodHappinessValue = HappinessFood.GOOD_FOODS_HAPPINESS_LEVEL.getOrDefault(stack.getItem(), 0);
-            this.getHappinessManager().increase(goodFoodHappinessValue);
+            this.getHappinessManager().increase(Objects.requireNonNull(stack.getItem().getFoodComponent()).getHunger());
         } else if (isBad) {
-            int badFoodHappinessValue = HappinessFood.BAD_FOODS_HAPPINESS_LEVEL.getOrDefault(stack.getItem(), 0);
-            this.getHappinessManager().decrease(badFoodHappinessValue);
+            this.getHappinessManager().decrease(Objects.requireNonNull(stack.getItem().getFoodComponent()).getHunger());
         }
     }
 

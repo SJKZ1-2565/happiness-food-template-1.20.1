@@ -30,9 +30,9 @@ public abstract class PlayerInventoryMixin extends AbstractInventoryScreen<Playe
         int i = this.x;
         int j = this.y;
         if (HappinessFood.happiness > 0) {
-            context.drawTexture(NEW_BG, i + 77, j + 7 + 50 - HappinessFood.happiness, 192, 123 - HappinessFood.happiness, 14, HappinessFood.happiness + 1);
+            context.drawTexture(NEW_BG, i + 77, j + 7 + 50 - (HappinessFood.happiness * 5), 192, 123 - (HappinessFood.happiness * 5), 14, (HappinessFood.happiness * 5) + 1);
         } else {
-            context.drawTexture(NEW_BG, i + 77, j + 7 + 50 - Math.abs(HappinessFood.happiness), 225, 123 - Math.abs(HappinessFood.happiness), 14, Math.abs(HappinessFood.happiness) + 1);
+            context.drawTexture(NEW_BG, i + 77, j + 7 + 50 - Math.abs((HappinessFood.happiness * 5)), 225, 123 - Math.abs(HappinessFood.happiness * 5), 14, (HappinessFood.happiness * -5) + 1);
         }
     }
 }

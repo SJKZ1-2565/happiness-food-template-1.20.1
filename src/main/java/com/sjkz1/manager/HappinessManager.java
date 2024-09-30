@@ -1,5 +1,6 @@
 package com.sjkz1.manager;
 
+import com.sjkz1.HappinessFood;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -19,24 +20,26 @@ public class HappinessManager {
 
     public void update(PlayerEntity player) {
         this.happiness = this.getHappiness();
-        if (happiness >= 50) {
-            happiness = 50;
+        if (happiness >= 10) {
+            happiness = 10;
         }
-        else if (happiness <= -50) {
-            happiness = -50;
+        else if (happiness <= -10) {
+            happiness = -10;
         }
 
-        if (player.canFoodHeal()) {
-            if (!this.isSad()) {
-                player.heal(this.getHappiness() * 0.001F);
-            } else {
-                if (this.getHappiness() == 0) {
-                    player.heal(0.1F);
-                } else {
-                    player.heal(Math.abs(this.getHappiness()) * 0.0005F);
-                }
-            }
-        }
+//        HappinessFood.LOGGER.info("Happiness {}",happiness);
+
+//        if (player.canFoodHeal()) {
+//            if (!this.isSad()) {
+//                player.heal(this.getHappiness() * 0.001F);
+//            } else {
+//                if (this.getHappiness() == 0) {
+//                    player.heal(0.1F);
+//                } else {
+//                    player.heal(Math.abs(this.getHappiness()) * 0.0005F);
+//                }
+//            }
+//        }
 
         ServerStatHandler serverStatHandler = ((ServerPlayerEntity) player).getStatHandler();
         int j = MathHelper.clamp(serverStatHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.TIME_SINCE_REST)), 1, Integer.MAX_VALUE);
