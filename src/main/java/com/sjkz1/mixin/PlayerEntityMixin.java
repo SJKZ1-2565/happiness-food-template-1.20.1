@@ -55,7 +55,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "wakeUp()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;wakeUp(ZZ)V"))
     public void wakeUp(CallbackInfo ci) {
         if (happinessManager.isSad()) {
-            this.happinessManager.increase(this.happinessManager.getHappiness() + Math.abs(this.happinessManager.getHappiness()));
+            this.happinessManager.increase(Math.abs(this.happinessManager.getHappiness()));
         } else {
             this.happinessManager.increase(5);
         }
