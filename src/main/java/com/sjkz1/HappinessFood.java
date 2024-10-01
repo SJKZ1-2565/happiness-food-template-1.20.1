@@ -1,14 +1,9 @@
 package com.sjkz1;
 
 import com.google.common.collect.Maps;
-import com.sjkz1.effect.HappyStatusEffect;
-import com.sjkz1.effect.UnHappyStatusEffect;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import org.slf4j.Logger;
@@ -19,16 +14,8 @@ import java.util.Map;
 public class HappinessFood implements ModInitializer {
     public static final String MOD_ID = "happiness-food";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final StatusEffect HAPPY_EFFECT;
-    public static final StatusEffect SAD_EFFECT;
     public static final Identifier HAPPINESS = Identifier.of(MOD_ID, "happiness");
     public static int happiness;
-
-
-    static {
-        HAPPY_EFFECT = Registry.register(Registries.STATUS_EFFECT, Identifier.of(MOD_ID, "happy"), new HappyStatusEffect());
-        SAD_EFFECT = Registry.register(Registries.STATUS_EFFECT, Identifier.of(MOD_ID, "sad"), new UnHappyStatusEffect());
-    }
 
     public static final Map<Item, Integer> GOOD_FOODS_HAPPINESS_LEVEL = Util.make(Maps.newHashMap(), map -> {
         map.put(Items.APPLE, 1);
