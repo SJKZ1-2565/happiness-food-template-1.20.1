@@ -11,16 +11,13 @@ public abstract class HungerManagerMixin {
 
     @ModifyExpressionValue(method = "update", at = @At(value = "CONSTANT", args = "intValue=10", ordinal = 0))
     public int heal2(int original) {
-        int modifiedFoodTickTimer = HappinessFood.happiness <= 0 ? original + Math.abs(HappinessFood.happiness) : original - HappinessFood.happiness;
-        if (modifiedFoodTickTimer == 0) {
-            modifiedFoodTickTimer = 1;
-        }
+        int modifiedFoodTickTimer = HappinessFood.happiness <= 0 ? original + Math.abs(HappinessFood.happiness) : HappinessFood.happiness / 2;
         return modifiedFoodTickTimer;
     }
 
     @ModifyExpressionValue(method = "update", at = @At(value = "CONSTANT", args = "intValue=80", ordinal = 0))
     public int heal(int original) {
-        int modifiedFoodTickTimer = HappinessFood.happiness <= 0 ? original + Math.abs(HappinessFood.happiness) : original - HappinessFood.happiness;
+        int modifiedFoodTickTimer = HappinessFood.happiness <= 0 ? original + Math.abs(HappinessFood.happiness) : original / HappinessFood.happiness;
         return modifiedFoodTickTimer;
     }
 
