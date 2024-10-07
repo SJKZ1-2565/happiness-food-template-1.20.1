@@ -15,7 +15,7 @@ public class HappinessFood implements ModInitializer {
     public static final String MOD_ID = "happiness-food";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final Identifier HAPPINESS = Identifier.of(MOD_ID, "happiness");
-    public static int happiness;
+    public static float happiness;
 
     public static final Map<Item, Integer> GOOD_FOODS_HAPPINESS_LEVEL = Util.make(Maps.newHashMap(), map -> {
         map.put(Items.APPLE, 1);

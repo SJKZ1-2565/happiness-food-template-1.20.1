@@ -25,7 +25,8 @@ import java.util.Objects;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
 
-    @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+    @Shadow
+    public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
     @Unique
     protected HappinessManager happinessManager = new HappinessManager();
@@ -38,7 +39,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     public void tick(CallbackInfo ci) {
         this.happinessManager.update(PlayerEntity.class.cast(this));
         var buf = PacketByteBufs.create();
-        buf.writeInt(this.happinessManager.getHappiness());
+        buf.writeFloat(this.happinessManager.getHappiness());
         ServerPlayNetworking.send(ServerPlayerEntity.class.cast(this), HappinessFood.HAPPINESS, buf);
     }
 
@@ -66,9 +67,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         boolean isGood = HappinessFood.GOOD_FOODS_HAPPINESS_LEVEL.containsKey(stack.getItem());
         boolean isBad = HappinessFood.BAD_FOODS_HAPPINESS_LEVEL.containsKey(stack.getItem());
         if (isGood) {
-            this.getHappinessManager().increase(Objects.requireNonNull(stack.getItem().getFoodComponent()).getHunger());
+            this.getHappinessManager().increase(Objects.requireNonNull(stack.getItem().getFoodComponent()).getSaturationModifier());
         } else if (isBad) {
-            this.getHappinessManager().decrease(Objects.requireNonNull(stack.getItem().getFoodComponent()).getHunger());
+            this.getHappinessManager().decrease(Objects.requireNonNull(stack.getItem().getFoodComponent()).getSaturationModifier());
         }
     }
 

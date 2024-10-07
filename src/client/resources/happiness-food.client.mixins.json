@@ -3,10 +3,9 @@
   "package": "com.sjkz1.mixin.client",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "ExampleClientMixin",
     "PlayerInventoryMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }
